@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: '/3d-portfolio'
+  base: process.env.NODE_ENV === 'production' ? '/3d-portfolio' : '/',
 })
