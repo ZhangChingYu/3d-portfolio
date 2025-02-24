@@ -32,3 +32,11 @@ export default defineConfig({
 npm install tailwindcss @tailwindcss/vite
 ```
 2. --legacy-peer-deps: 標誌是在v7中引入的，目的是繞過peerDependency自動安裝；它告訴 NPM 忽略項目中引入的各個modules之間的相同modules但不同版本的問題並繼續安裝，保證各個引入的依賴之間對自身所使用的不同版本modules共存。
+3. @react-three/fiber: This is a React based three.js library thats going to allow us to create three.js code in a React fasion.
+4. @react-three/drei
+5. maath: For math utility functions.
+6. react-tilt
+7. react-verticle-timeline-component
+8. @emailjs/browser
+9. framer-motion
+10. react-router-dom
