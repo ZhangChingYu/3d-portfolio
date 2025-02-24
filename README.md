@@ -40,3 +40,26 @@ npm install tailwindcss @tailwindcss/vite
 8. @emailjs/browser
 9. framer-motion
 10. react-router-dom
+## Plugin 版本衝突解決
+我在npm install 各個插件的時候出現了 modules 間的版本衝突問題，這裡記錄一下解決方法：
+- 在項目 terminal 進行 npm install 前要加上 --lagacy-peer-deps，具體細節如下：
+``` cmd
+npm install ----lagacy-peer-deps @react-three/fiber @react-three/drei maath react-tilt react-verticle-timeline-component @emailjs/browser framer-motion react-router-dom
+```
+- 此時項目可以在本地正常運行，但是部署還存在問題，我在網上找到了幾種解決方法，這裡我全都用了：
+  - 在 package.json 中加入："engines": {"node": ">=18"},
+  - 在 deploy.yml 中把 node-version 改成 18
+  - 同樣在 deploy.yml 中把
+  ``` cmd
+  - name: Install dependencies
+        run: | 
+          npm ci
+  ```
+  改成：
+  ``` cmd
+  - name: Install dependencies
+        run: | 
+          rm -f package-lock.json
+          npm install --legacy-peer-deps
+  ```
+  這樣就能順利部署上去了
