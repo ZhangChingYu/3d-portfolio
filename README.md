@@ -31,3 +31,4 @@ export default defineConfig({
 ``` cmd
 npm install tailwindcss @tailwindcss/vite
 ```
+2. --legacy-peer-deps: 標誌是在v7中引入的，目的是繞過peerDependency自動安裝；它告訴 NPM 忽略項目中引入的各個modules之間的相同modules但不同版本的問題並繼續安裝，保證各個引入的依賴之間對自身所使用的不同版本modules共存。
