@@ -27,9 +27,10 @@ export default defineConfig({
 12. 到項目terminal中pull代碼，這樣整個初始部署就完成了
 
 # 項目用到的Package/Plugin
-1. tailwing css
+1. tailwing css: 執行完後會自動生成tailwindcss.js和postcss.js檔案，這裡我用的tailwindcss是 v3.4.17 版本。
 ``` cmd
-npm install tailwindcss @tailwindcss/vite
+npm install -D tailwindcss@3 postcss autoprefixer
+npx tailwindcss init -p
 ```
 2. --legacy-peer-deps: 標誌是在v7中引入的，目的是繞過peerDependency自動安裝；它告訴 NPM 忽略項目中引入的各個modules之間的相同modules但不同版本的問題並繼續安裝，保證各個引入的依賴之間對自身所使用的不同版本modules共存。
 3. @react-three/fiber: This is a React based three.js library thats going to allow us to create three.js code in a React fasion.
