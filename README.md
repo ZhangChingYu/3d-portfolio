@@ -78,44 +78,41 @@ import { OrbitControls, Preload, useGLTF } from '@react-three/drei'
 
 import CanvasLoader from '../Loader'
 
-const Computers = ({ isMobile }) => {
+const Computers = () => {
+  // load the Three.js module in /public 
   const computer = useGLTF('./desktop_pc/scene.gltf')
-
   return (
+    // mesh: Container for <preimitive />
     <mesh>
+      <!-- this is use to scroll the module throw mouse, we set the angle to Math.Pi/2 so it only spins horizontally. -->
       <OrbitControls enableZoom={false} maxPolarAngle={Math.PI/2} minPolarAngle={Math.PI/2}/>
+      <!-- we use it to provide light, without light we cannot see the module -->
       <hemisphereLight intensity={1} groundColor="black"/>
+      <!-- this create a ray of light shot at the module -->
       <pointLight intensity={1}/>
+      <!-- this provide a light source that we can customize it position [x-position, y-position, z-position] -->
       <spotLight intensity={1} position={[-20, 50, 10]} angle={0.12} penumbra={1} castShadow/>
+      <!-- container that we use the render gltf module -->
       <primitive object={computer.scene} scale={isMobile ? 0.5 : 0.65} position={isMobile ? [0, -3, -2.2]:[0, -3.25, -1.5]} rotation={[-0.01, -0.2, -0.1]}/>
     </mesh>
   )
 }
 
 const ComputersCanvas = () => {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 600px)')
-    setIsMobile(mediaQuery.matches)
-    const handleMediaQueryChange = (event) => {
-      setIsMobile(event.matches)
-    }
-    // add event listener 
-    mediaQuery.addEventListener('change', handleMediaQueryChange)
-    // close event listener becuase we are in useEffect()
-    return () => {
-      mediaQuery.removeEventListener('change', handleMediaQueryChange)
-    }
-  },[])
-
   return (
+    // Canvas: the root container to all element of Three.js
+    // camera is an important feature in Canvas, it determines where are we looking at the module.
+    // gl={{ preserveDrawingBuffer: true }}: 用來正確 render 模型，不添加好像就沒法正常展示
     <Canvas frameloop='demand' shadows 
     camera={{ position: [20, 3, 5], fov: 25 }}
     gl={{ preserveDrawingBuffer: true } }
     >
+      <!-- this can add loading component while loading the module using "fallback" -->
       <Suspense fallback={ <CanvasLoader /> }>
-        <Computers isMobile={isMobile}/>
+        <Computers />
       </Suspense>
+      <!-- WebGLRenderer只有在遇到挫折時才會編譯材料，這可能會導致堵塞。 Preload 使用gl.compile預編譯場景，可以確保應用程式從開始就響應 -->
+      <!-- 預設情況下，gl.compile只會預載入可見物件，使用 all 就可以預加載所有物件 -->
       <Preload all/>
     </Canvas>
   )
@@ -123,15 +120,4 @@ const ComputersCanvas = () => {
 
 export default ComputersCanvas
 ```
-1. 加載 Three.js 模型
-2. mesh 容器
-3. 添加燈光
-4. <primitive object={obj.scene}/> 導入模型
-5. Canvas
-  - frameloop:
-  - shadow:
-  - camera: 最重要的部分，決定了我們看模型的方向
-    - position: [x-position, y-position, z-position]
-    - fov: Field-Of-View，
-  - gl={{ preserveDrawingBuffer: true }}: 用來正確 render 模型，不添加好像就沒法正常展示
 * 如果對這些標籤不熟悉的話，可以到 React Three Fiber.docs (https://r3f.docs.pmnd.rs/getting-started/introduction) 網站查看詳細說明。 *
