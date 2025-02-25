@@ -84,15 +84,15 @@ const Computers = () => {
   return (
     // mesh: Container for <preimitive />
     <mesh>
-      <!-- this is use to scroll the module throw mouse, we set the angle to Math.Pi/2 so it only spins horizontally. -->
+      {/* this is use to scroll the module throw mouse, we set the angle to Math.Pi/2 so it only spins horizontally. */}
       <OrbitControls enableZoom={false} maxPolarAngle={Math.PI/2} minPolarAngle={Math.PI/2}/>
-      <!-- we use it to provide light, without light we cannot see the module -->
+      {/* we use it to provide light, without light we cannot see the module */}
       <hemisphereLight intensity={1} groundColor="black"/>
-      <!-- this create a ray of light shot at the module -->
+      {/* this create a ray of light shot at the module */}
       <pointLight intensity={1}/>
-      <!-- this provide a light source that we can customize it position [x-position, y-position, z-position] -->
+      {/* this provide a light source that we can customize it position [x-position, y-position, z-position] */}
       <spotLight intensity={1} position={[-20, 50, 10]} angle={0.12} penumbra={1} castShadow/>
-      <!-- container that we use the render gltf module -->
+      {/* container that we use the render gltf module */}
       <primitive object={computer.scene} scale={isMobile ? 0.5 : 0.65} position={isMobile ? [0, -3, -2.2]:[0, -3.25, -1.5]} rotation={[-0.01, -0.2, -0.1]}/>
     </mesh>
   )
@@ -107,12 +107,12 @@ const ComputersCanvas = () => {
     camera={{ position: [20, 3, 5], fov: 25 }}
     gl={{ preserveDrawingBuffer: true } }
     >
-      <!-- this can add loading component while loading the module using "fallback" -->
+      {/* this can add loading component while loading the module using "fallback" */}
       <Suspense fallback={ <CanvasLoader /> }>
         <Computers />
       </Suspense>
-      <!-- WebGLRenderer只有在遇到挫折時才會編譯材料，這可能會導致堵塞。 Preload 使用gl.compile預編譯場景，可以確保應用程式從開始就響應 -->
-      <!-- 預設情況下，gl.compile只會預載入可見物件，使用 all 就可以預加載所有物件 -->
+      {/* WebGLRenderer只有在遇到挫折時才會編譯材料，這可能會導致堵塞。 Preload 使用gl.compile預編譯場景，可以確保應用程式從開始就響應 */}
+      {/* 預設情況下，gl.compile只會預載入可見物件，使用 all 就可以預加載所有物件 */}
       <Preload all/>
     </Canvas>
   )
