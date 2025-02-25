@@ -64,3 +64,25 @@ npm install ----lagacy-peer-deps @react-three/fiber @react-three/drei maath reac
           npm install --legacy-peer-deps
   ```
   這樣就能順利部署上去了
+## 解決 ✘ [ERROR] Could not resolve "three" 問題
+我在導入 three.js 模型時，發現 import { Canvas } from '@react-three/fiber' 會報錯。這個錯誤提示說在構建時無法解析 "three"，而 @react-three/fiber 依賴這個模塊。此時我們可以通过安装 three 包來解決這個問題。在控制台輸入安裝命令就可以正常運行了：
+``` cmd
+npm install --legacy-peer-deps three
+```
+# Three.js 使用範例(React.js 項目)
+
+``` javascript
+
+```
+1. 加載 Three.js 模型
+2. mesh 容器
+3. 添加燈光
+4. <primitive object={obj.scene}/> 導入模型
+5. Canvas
+  - frameloop:
+  - shadow:
+  - camera: 最重要的部分，決定了我們看模型的方向
+    - position: [x-position, y-position, z-position]
+    - fov: Field-Of-View，
+  - gl={{ preserveDrawingBuffer: true }}: 用來正確 render 模型，不添加好像就沒法正常展示
+* 如果對這些標籤不熟悉的話，可以到 React Three Fiber.docs (https://r3f.docs.pmnd.rs/getting-started/introduction) 網站查看詳細說明。 *
