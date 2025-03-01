@@ -8,13 +8,13 @@ const Ball = ({ imgUrl }) => {
   const [decal] = useTexture([imgUrl])
 
   return (
-    <Float speed={4} rotationIntensity={1} floatIntensity={2}>
+    <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
       <ambientLight intensity={1} />
-      <directionalLight position={[0,0,0.5]} />
-      <mesh castShadow receiveShadow scale={2.75}>
-        <icosahedronGeometry args={[1,1]} />
+      <directionalLight position={[0,0,0.05]} />
+      <mesh castShadow receiveShadow scale={2.75} rotation={[0,Math.PI/2-0.4,0]}>
+        <icosahedronGeometry args={[1,1]}/>
         <meshStandardMaterial color='#fff8eb' polygonOffset polygonOffsetFactor={-5} flatShading/>
-        <Decal map={decal} scale={1.4} position={[0,0,1]} rotation={[0, 0, 6.25]}/>
+        <Decal position={[0,0,1]} rotation={[0,0,0]} map={decal} scale={1.4}/>
       </mesh>
     </Float>
   )
@@ -22,7 +22,7 @@ const Ball = ({ imgUrl }) => {
 
 const BallCanvas = ({ icon }) => {
   return (
-    <Canvas frameloop='demand'
+    <Canvas
       shadows
       camera={{ position: [20, 3, 5], fov: 25 }}
       gl={{ preserveDrawingBuffer: true }}>
