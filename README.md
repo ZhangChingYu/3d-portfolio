@@ -69,6 +69,7 @@ npm install ----lagacy-peer-deps @react-three/fiber @react-three/drei maath reac
 ``` cmd
 npm install --legacy-peer-deps three
 ```
+
 # Three.js 使用範例(React.js 項目)
 
 ``` javascript
@@ -120,4 +121,7 @@ const ComputersCanvas = () => {
 
 export default ComputersCanvas
 ```
+## Suspense 簡介
+React 的 Suspense 是一个内置組件，主要用于處理異步加載組件或數據时的選染狀態。簡單來說，Suspense 允許你在等待某个異步操作完成（比如代碼分割加載、數據獲取等）時，展示一个後備的 UI（例如加載動畫或占位符），而不是直接顯示空白或錯誤頁面。
+---
 * 如果對這些標籤不熟悉的話，可以到 React Three Fiber.docs (https://r3f.docs.pmnd.rs/getting-started/introduction) 網站查看詳細說明。 *
