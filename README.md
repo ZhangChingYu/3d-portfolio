@@ -125,3 +125,38 @@ export default ComputersCanvas
 React 的 Suspense 是一个内置組件，主要用于處理異步加載組件或數據时的選染狀態。簡單來說，Suspense 允許你在等待某个異步操作完成（比如代碼分割加載、數據獲取等）時，展示一个後備的 UI（例如加載動畫或占位符），而不是直接顯示空白或錯誤頁面。
 ---
 * 如果對這些標籤不熟悉的話，可以到 React Three Fiber.docs (https://r3f.docs.pmnd.rs/getting-started/introduction) 網站查看詳細說明。 *
+
+## 使用 emailjs 發送郵件
+1. 首先我們要先到 https://www.emailjs.com 註冊一個帳號（如果有已經有帳號直接登入即可）
+2. 登入後，點擊 Add New Service 添加新的 service 並點擊 Connect Account 連接到對應的 eimal 帳戶
+3. 點擊進入 Email Template，並點擊 Create New Template 創建新的郵件模板
+4. 創建完後，退回到 Email Template 頁面就能看到剛剛創建的模板了。點擊剛剛創建的模板，並點擊 Settings，找到 Template ID 並複製下來
+5. 再回到 Email Service 點擊想使用的 service 並將 Service ID 複製下來
+6. 點擊 Account 並把 Public Key 複製下來
+7. 調用 emailjs 的 send('Service Id', 'Template Id', {content}, 'Public Key') 方法就可以發送郵件了。
+``` javascript
+const handleSubmit = (e) => {
+    e.preventDefault()
+    setLoading(true)
+    emailjs.send('My Service Id', 'My Template Id', {
+      from_name: form.name,
+      for_name: 'Your Name',
+      from_email: form.email,
+      to_email: 'Your Email',
+      message: form.message
+    }, 'Public Key')
+    .then(() => {
+      setLoading(false)
+      alert('Thank you. I will get back to you in 3 business days.')
+      setForm({
+        name:'',
+        email:'',
+        message:''
+      })
+    }, (error) => {
+      setLoading(false)
+      console.log(error)
+      alert('Something want wrong.')
+    })
+  }
+```
